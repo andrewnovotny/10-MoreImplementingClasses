@@ -3,8 +3,8 @@ A simple   Line   class.
 NOTE: This is NOT rosegraphics -- it is your OWN Line class.
 
 Authors: David Mutchler, Dave Fisher, Valerie Galluzzi, Amanda Stouder,
-         their colleagues and PUT_YOUR_NAME_HERE.
-"""  # TODO: 1. PUT YOUR NAME IN THE ABOVE LINE.
+         their colleagues and Andrew Novotny.
+"""  # DONE: 1. PUT YOUR NAME IN THE ABOVE LINE.
 
 import math
 import m1t_test_Line as m1t
@@ -15,7 +15,7 @@ import m1t_test_Line as m1t
 ########################################################################
 
 # ----------------------------------------------------------------------
-# TODO: 2. With your instructor, READ THE INSTRUCTIONS
+# DONE: 2. With your instructor, READ THE INSTRUCTIONS
 #   in file  m0_INSTRUCTIONS.txt, asking questions as needed.
 #   Once you understand the instructions, mark this TO DO as DONE.
 #
@@ -196,7 +196,13 @@ class Line(object):
         Other methods must maintain those instance variables as needed
         so that they always indicate the CURRENT start and end points
         of this Line.
-
+        """
+        self.start = Point.clone(start)
+        self.end = Point.clone(end)
+        self.old_start = Point.clone(start)
+        self.old_end = Point.clone(end)
+        self.clones = 0
+        """
         Also, initializes other instance variables as needed
         by other Line methods.
 
@@ -217,7 +223,7 @@ class Line(object):
           :type end:   Point
         """
         # --------------------------------------------------------------
-        # TODO: 3.
+        # DONE: 3.
         #   a. READ the above specification, including the Example.
         #        ** ASK QUESTIONS AS NEEDED. **
         #        ** Be sure you understand it, ESPECIALLY the Example.
@@ -316,7 +322,10 @@ class Line(object):
             print(line1 is line2)              # Should print: False
             print(line1.start is line2.start)  # Should print: False
             print(line1.end is line2.end)      # Should print: False
-
+        """
+        self.clones += 1
+        return Line(self.start,self.end)
+        """
             line1.start = Point(11, 12)
             print(line1)  # Should print: Line[(11, 12), (50, 80)]
             print(line2)  # Should print: Line[(30, 17), (50, 80)]
@@ -326,7 +335,7 @@ class Line(object):
           :rtype: Line
         """
         # --------------------------------------------------------------
-        # TODO: 4.
+        # DONE: 4.
         #   a. READ the above specification, including the Example.
         #        ** ASK QUESTIONS AS NEEDED. **
         #        ** Be sure you understand it, ESPECIALLY the Example.
@@ -342,7 +351,14 @@ class Line(object):
         What goes out: Nothing (i.e., None).
         Side effects: MUTATES this Line so that its direction is
         reversed (that is, its start and end points are swapped).
+        """
+        pend = self.end
+        pstart = self.start
+        self.start = pend
+        self.end = pstart
 
+
+        """
         Examples:
             p1 = Point(30, 17)
             p2 = Point(50, 80)
@@ -359,7 +375,7 @@ class Line(object):
             print(line1 == line2)    # Should now print: True
         """
         # --------------------------------------------------------------
-        # TODO: 5.
+        # DONE: 5.
         #   a. READ the above specification, including the Example.
         #        ** ASK QUESTIONS AS NEEDED. **
         #        ** Be sure you understand it, ESPECIALLY the Example.
@@ -376,7 +392,15 @@ class Line(object):
         If the line is vertical (i.e., has "infinite" slope), returns
            math.inf
         Side effects: None.
+        """
+        rise = self.end.y - self.start.y
+        run = self.end.x - self.start.x
+        if run == 0:
+            return math.inf
+        else:
+            return float(rise / run)
 
+        """
         Examples:
             p1 = Point(30, 3)
             p2 = Point(50, 8)
@@ -395,7 +419,7 @@ class Line(object):
           :rtype: float
         """
         # --------------------------------------------------------------
-        # TODO: 6.
+        # DONE: 6.
         #   a. READ the above specification, including the Example.
         #        ** ASK QUESTIONS AS NEEDED. **
         #        ** Be sure you understand it, ESPECIALLY the Example.
@@ -427,8 +451,12 @@ class Line(object):
         Type hints:
           :rtype: float
         """
+        dx = self.end.x - self.start.x
+        dy = self.end.y - self.start.y
+        dist = math.sqrt(dx **  2 + dy ** 2)
+        return dist
         # --------------------------------------------------------------
-        # TODO: 7.
+        # DONE: 7.
         #   a. READ the above specification, including the Example.
         #        ** ASK QUESTIONS AS NEEDED. **
         #        ** Be sure you understand it, ESPECIALLY the Example.
@@ -467,8 +495,9 @@ class Line(object):
         Type hints:
           :rtype: int:
         """
+        return self.clones
         # --------------------------------------------------------------
-        # TODO: 8.
+        # DONE: 8.
         #   a. READ the above specification, including the Example.
         #        ** ASK QUESTIONS AS NEEDED. **
         #        ** Be sure you understand it, ESPECIALLY the Example.
@@ -501,8 +530,11 @@ class Line(object):
           :type  other_line: Line
           :rtype: Line:
         """
+        start = Point(self.start.x + other_line.start.x, self.start.y + other_line.start.y)
+        end = Point(self.end.x + other_line.end.x, self.end.y + other_line.end.y)
+        return Line(start,end)
         # --------------------------------------------------------------
-        # TODO: 9.
+        # DONE: 9.
         #   a. READ the above specification, including the Example.
         #        ** ASK QUESTIONS AS NEEDED. **
         #        ** Be sure you understand it, ESPECIALLY the Example.
@@ -535,8 +567,11 @@ class Line(object):
           :type  other_line: Line
           :rtype: Line:
         """
+        start = Point(self.start.x - other_line.start.x, self.start.y - other_line.start.y)
+        end = Point(self.end.x - other_line.end.x, self.end.y - other_line.end.y)
+        return Line(start, end)
         # --------------------------------------------------------------
-        # TODO: 10.
+        # DONE: 10.
         #   a. READ the above specification, including the Example.
         #        ** ASK QUESTIONS AS NEEDED. **
         #        ** Be sure you understand it, ESPECIALLY the Example.
@@ -562,8 +597,11 @@ class Line(object):
         Type hints:
           :rtype: Point
         """
+        midx = (self.start.x + self.end.x) / 2
+        midy = (self.start.y + self.end.y) / 2
+        return Point(midx, midy)
         # --------------------------------------------------------------
-        # TODO: 11.
+        # DONE: 11.
         #   a. READ the above specification, including the Example.
         #        ** ASK QUESTIONS AS NEEDED. **
         #        ** Be sure you understand it, ESPECIALLY the Example.
@@ -598,8 +636,9 @@ class Line(object):
           :type  line2: Line
           :rtype: bool
         """
+        return round(self.slope(),8) == round(line2.slope(), 8)
         # --------------------------------------------------------------
-        # TODO: 12.
+        # DONE: 12.
         #   a. READ the above specification, including the Example.
         #        ** ASK QUESTIONS AS NEEDED. **
         #        ** Be sure you understand it, ESPECIALLY the Example.
@@ -663,8 +702,10 @@ class Line(object):
             print(line1)  # Should print: Line[(-3, -4), (3, 4)]
             print(line2)  # Should print: Line[(0, 1), (10, 20)]
         """
+        self.start = self.old_start
+        self.end = self.old_end
         # --------------------------------------------------------------
-        # TODO: 13.
+        # DONE: 13.
         #   a. READ the above specification, including the Example.
         #        ** ASK QUESTIONS AS NEEDED. **
         #        ** Be sure you understand it, ESPECIALLY the Example.
