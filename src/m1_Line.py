@@ -324,7 +324,7 @@ class Line(object):
             print(line1.end is line2.end)      # Should print: False
         """
         self.clones += 1
-        return Line(self.start,self.end)
+        return Line(self.start, self.end)
         """
             line1.start = Point(11, 12)
             print(line1)  # Should print: Line[(11, 12), (50, 80)]
