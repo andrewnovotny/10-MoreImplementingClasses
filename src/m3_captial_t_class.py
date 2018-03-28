@@ -285,8 +285,11 @@ class CapitalT(object):
         topr = self.v_rect.get_upper_right_corner()
         topl = self.v_rect.get_upper_left_corner()
         intersection = rg.Point((topr.x + topl.x) // 2, topr.y)
-        return CapitalT(intersection, self.width, self.height, self.letter_thickness)
-
+        color = self.v_rect.fill_color
+        outline = self.v_rect.outline_color
+        t2 = CapitalT(intersection, self.width, self.height, self.letter_thickness)
+        t2.set_colors(color, outline)
+        return t2
 
 # ----------------------------------------------------------------------
 # If this module is running at the top level (as opposed to being
